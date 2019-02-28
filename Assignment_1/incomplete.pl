@@ -25,14 +25,25 @@ initKB(File) :- retractall(kb(_)), makeKB(File).
 %----------------------------------------------------------------
 
 astar(Node,Path,Cost) :- kb(KB), 
-						 astar(Node,Path,Cost,KB).
+						 astar2([[Node, [], 0]],Path,Cost,KB).
 
-astar([[Node, Path, Cost]|_], Path, Cost, _) :- goal(Node).
-astar([[Node, Path, Cost]|Rest],Path,Cost,KB) :- findall(X, arc(Node, X), Children),
-							add-to-frontier(Children, More, New),
-							astar(New, Path, Cost, KB).
+astar2([[Node, Path, Cost]|_], Path, Cost, _) :- goal(Node).
+astar2([[Node, Path, Cost]|Rest],_,_,KB) :- 
+							findall([X,[Node],Y], arc(Node, X, Y, KB), Children),
+							addtofrontier(Children, Rest, Temp),
+							minSort(Temp, New),
+							astar2(New, _, _, KB).
 
-less-than([[Node1|_],Cost1],[[Node2|_],Cost2]) :- heuristic(Node1,Hvalue1), 					                              heuristic(Node2,Hvalue2),
+addtofrontier(Children, Frontier, NewFrontier) :- append(Children, Frontier, NewFrontier).
+
+minSort([Head|Tail], Result) :- sort(Head, [], Tail, Result).
+sort(Head, S, [], [Head|S]).
+sort(C, S, [Head|Tail], Result) :- lessthan(C, Head), !,
+								   sort(C, [Head|S], Tail, Result);
+								   sort(Head, [C|S], Tail, Result).
+ 
+
+lessthan([Node1,_,Cost1|_],[Node2,_,Cost2|_]) :- heuristic(Node1,Hvalue1), 					                              heuristic(Node2,Hvalue2),
                                                   F1 is Cost1+Hvalue1, 
                                                   F2 is Cost2+Hvalue2,
                                                   F1 =< F2.
