@@ -27,12 +27,23 @@ initKB(File) :- retractall(kb(_)), makeKB(File).
 astar(Node,Path,Cost) :- kb(KB), 
 						 astar2([[Node, [], 0]],Path,Cost,KB).
 
-astar2([[Node, Path, Cost]|_], Path, Cost, _) :- goal(Node).
-astar2([[Node, Path, Cost]|Rest],_,_,KB) :- 
-							findall([X,[Node],Y], arc(Node, X, Y, KB), Children),
+
+
+
+
+
+astar2([[Node, Path, Cost]|_], [Node,Path], Cost, _) :- goal(Node).
+astar2([[Node, P, C]|Rest], Path, Cost, KB) :- 
+							findall([X,[Node|P],Sum], (arc(Node, X, Y, KB), Sum is Y+C), Children),
 							addtofrontier(Children, Rest, Temp),
-							minSort(Temp, New),
-							astar2(New, _, _, KB).
+							minSort(Temp, [[N1, P1, C1]|T1]),
+							astar2([[N1, P1, C1]|T1], Path, Cost, KB).
+
+
+
+
+
+
 
 addtofrontier(Children, Frontier, NewFrontier) :- append(Children, Frontier, NewFrontier).
 
