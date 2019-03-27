@@ -1,3 +1,4 @@
+from decimal import Decimal
 # States: Fit, Unfit
 # Actions: Excercise, Relax
 #
@@ -9,27 +10,19 @@
 # | Fit       | 0.7,10 | 0.3,10 |
 # | Unfit     | 0,5    | 1,5    |
 #
-# 
-#
-#
-#
-#
+excercise = [[[0.891,8],[0.009,8],[0.1,0]], [[0.18,0],[0.72,0],[0.1,0]], [[0,0],[0,0],[1,0]]]
+relax = [[[0.693,10],[0.297,10],[0.01,0]], [[0,5],[0.99,5],[0.01,0]], [[0,0],[0,0],[1,0]]]
 
-
-
-
-
-excercise = [[[0.99,8],[0.01,8]], [[0.2,0],[0.8,0]]]
-relax = [[[0.7,10],[0.3,10]], [[0,5],[1,5]]]
-
-iterations = int(raw_input("Please enter number of iterations: "))
-disc_val = float(raw_input("Please enter discounted value (0 < y < 1): "))
+iterations = int(input("Please enter number of iterations: "))
+disc_val = float(input("Please enter discounted value (0 < y < 1): "))
 state = raw_input("Please enter state: ")
 
 if state == "fit" or state == "Fit":
 	state = 0
-else:
+elif state == "unfit" or state == "Unfit":
 	state = 1
+else:
+	state = 2
 	
 def q0(s,a):
 	if a == "excercise":
@@ -43,7 +36,7 @@ def q0(s,a):
 	return part3
 		
 	
-def Vn(s, n):
+def Vn(s,n):
 	temp1 = qn(s, "excercise", n)
 	temp2 = qn(s, "relax", n)
 	return max(temp1, temp2)
@@ -72,6 +65,7 @@ def qn(s,a,n):
 	
 print("Excercise: " + str(qn(state, "excercise", iterations)))
 print("Relax: " + str(qn(state, "relax", iterations)))
+
 	
 
 
