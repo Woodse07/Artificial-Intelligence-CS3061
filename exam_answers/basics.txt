@@ -1,0 +1,126 @@
+AGENT:
+	Acts on an evironment.
+
+TURING MACHINE:
+	An abstract machine that operates on a tape of symbols using a table of rules.
+	An agent can be modelled as a turing machine where the tape is the environment.
+
+CHURCH-TURING THESIS:
+	Anything that can be computed, can be computed by a Turing Machine.
+
+ELIZA EFFECT:
+	Humans are inclined to see computers as humans.
+
+HALTING PROBLEM:
+	HP(P,D) = (1 if P halts on D, 0 otherwise)
+	Where: 
+		P = Program
+		D = Data
+	No Turing Machine can compute HP.
+
+SEMI-SOLVABILITY:
+	Can solve for positive part of HP. (Using Universal Turing Machine?)
+
+NON-DETERMINISM:
+	A non-deterministic algorithm is one that, for the same input, may exhibit different
+	behaviours on different runs.
+	A* is a deterministic algorithm.
+
+
+FRONTIER SEARCH:
+	search(Node) :- frontierSearch([Node]).
+	
+	frontierSearch([Node|_]) :- goal(Node).
+	frontierSearch([CurrentNode|RestOfFrontier]) :-
+		findall(NextNode, arc(CurrentNode, NextNode), Children),
+		addToFrontier(Children, RestOfFrontier, NewFrontier),
+		frontierSearch(NewFrontier).
+
+
+DEPTH-FIRST SEARCH:
+	frontierSearch([[[]|_]|_]).
+	frontierSearch([CurrentNode|RestOfFrontier], KB) :-
+		findall(NextNode, arc(CurrentNode, NextNode), Children),
+		append(Children, RestOfFrontier, NewFrontier),
+		frontierSearch(NewFrontierm, KB).
+	
+	More efficient as added to head of list, but can get stuck if goal is shallow.
+
+
+BREADTH-FIRST SEARCH:
+	frontierSearch([[[]|_]|_]).
+	frontierSearch([CurrentNode|RestOfFrontier], KB) :-
+		findall(NextNode, arc(CurrentNode, NextNode), Children),
+		append(RestOfFrontier, Children, NewFrontier),
+		frontierSearch(NewFrontierm, KB).
+
+	Inefficient as have to traverse entire linkedlist, but good if goal is shallow.
+
+
+A* SEARCH:
+	f(x) = cost(x) + h(x)
+	Frontier = [Head|Tail] where f(Head) < f(∀ Tail)
+	
+ADMISSIBILITY:
+	Returns the minimum cost solution whenever a solution exists.
+	A* is admissable
+	
+	3 conditions are required:
+		1. Underestimate: All heuristics are less than the actual cost.
+		2. Termination: For some E > 9, every arc costs >= E
+		3. Finite Branching: {n' | arc(n, n')}, n' is finite
+
+
+MARKOV DECISION PROCESS (MDP):
+	A 5 tuple <S, A, p, r, y> consisting of:
+		1. A finite set S of states.
+		2. A finite set A of actions.
+		3. A function p: S*A*S -> [0,1]
+		   p(s,a,s') = prob(s'|s,a)
+		4. A function r: S*A*S -> Real Numbers
+		   r(s,a,s') = Immediate reward at s' after a is done at s.
+		5. A discount factor y ∊ [0,1]
+
+	A policy (Ⲡ) is a mapping from s -> a
+	Ⲡ* = the best policy.
+
+	q0(s,a) = ⅀_s' [p(s,a,s')*r(s,a,s')]
+	
+	qn+1(s,a) = q0(s,a) + ⅀_s' [p(s,a,s')* ymax_a' qn(s',a')]
+
+
+ABSORBING:
+	State is absorbing if p(s,a,s) = 1 for every a
+	Will always remain in state s.
+
+SINK:
+	State is a sink if it's absorbing and r(s,a,s) = m for all a.
+	All actions give the same reward.
+
+S-DETERMINISTIC:
+	Action is s-deterministic if p(s,a,s') = 1 for some s'.
+	Basically only one possible s' for given s,a.
+
+S-DRAIN:
+	Action is an s-drain if: i
+		It is s-deterministic, 
+		s' is a sink,
+		r(s,a,s') = m where m = r(s',a,s') of the sink.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
