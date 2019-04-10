@@ -1,0 +1,41 @@
+QUESTION 1:
+
+(a)
+add2frontier(Children, Rest, NewFrontier) :- 
+	append(Children, Rest, NewFrontier)
+
+(b)
+add2frontier(Children, Rest, NewFrontier) :- 
+	append(Rest, Children, NewFrontier)
+
+(c)
+Should be modified so that the head of the frontier has the lowest cost q-value..
+f(x) = cost(x) + h(x)
+[Head|Tail].. f(Head) <= f(T) for all values of T ∊ Tail
+	
+	IMPLEMENTATION:
+		todo
+
+(d)
+Basically means that if there is a solution, A* will always find it, and it will have the
+minimal cost value.
+
+(e)
+Three conditions are required for A* to be admissible.
+	- Branching factor is finite.
+	- Arc costs are bounded above zero.
+	- h(n) is an underestimate of the length of the shortest path from n to a goal node.
+
+Yes, these conditions do guarantee that A* will terminate, since the arc costs are bounded
+above zero.
+
+(f)
+BFS is admissible, since it is guaranteed to find optimal solutions provided that any exist.
+
+(g)
+No, A* is not admissible under this setup, since branching factor is infinite.
+Maybe also because h(n) is not an underestimate of the length of the shortest path from
+n to a goal node?
+
+(h)
+A* still won't be admissible under this setup since the branching factor is still infinite.
