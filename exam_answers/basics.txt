@@ -1,3 +1,9 @@
+Question1: A*
+Question2: MDP
+Question3: Constraints satisfaction and knowledge representation + 
+		   Bayesian and Markov networks
+
+
 AGENT:
 	Acts on an evironment.
 
@@ -67,8 +73,8 @@ ADMISSIBILITY:
 	
 	3 conditions are required:
 		1. Underestimate: All heuristics are less than the actual cost.
-		2. Termination: For some E > 9, every arc costs >= E
-		3. Finite Branching: {n' | arc(n, n')}, n' is finite
+		2. Termination: For some E > 0, every arc costs >= E.
+		3. Finite Branching: {n' | arc(n, n')}, n' is finite.
 
 
 MARKOV DECISION PROCESS (MDP):
@@ -107,8 +113,38 @@ S-DRAIN:
 		s' is a sink,
 		r(s,a,s') = m where m = r(s',a,s') of the sink.
 
+EXPLORATION VS EXPLOITATION:
+	Exploration means we want to know more.
+	Exploitation means we want to do the best we can.
 
 
+A* SEARCH:
+	Uses both path cost and heuristic values:
+		- cost(p) is the cost of path p.
+		- h(p) is the estimate of the cost from the end of p to a goal.
+		- f(p) = cost(p) + h(p), is the estimate of the cost of the total path from
+		  start node to a goal via p.
+
+	Is a mix of lowest-cost-firt and best-first-search:
+		- Treats frontier as a priority queue ordered by f(n).
+		- Always selects the node on the frontier with the lowest estimated distance from
+		  the start to a goal node constrained to go via that node.
+
+ADMISSIBILITY:
+	If there is a solution, A* always finds an optimal solution if:
+		- Branching factor is finite.
+		- Arc costs are bounded above zero.
+		- h(n) is an underestimate of the length of the shortest path from n to a goal node.
+
+
+HORN CLAUSE:
+	Either a definite clause or an integrity clause.
+
+DEFINITE CLAUSE:
+	Any regular clause (prolog, less cuts) such as r <- a1 V .. V am.
+
+INTEGRITY CLAUSE:
+	A clause of the form: false <- a1 V .. V am.
 
 
 

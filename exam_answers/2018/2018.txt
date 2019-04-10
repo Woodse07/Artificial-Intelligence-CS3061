@@ -39,3 +39,18 @@ n to a goal node?
 
 (h)
 A* still won't be admissible under this setup since the branching factor is still infinite.
+
+
+
+
+
+QUESTION 2:
+
+(a)
+Policy: is a mapping from s -> a, tells us what action to take for all states.
+3 states, 2 actions
+3*2 = 6 policies.
+
+(b)
+Optimal Policy: is the best policy, the best action for us to take for all states.
+

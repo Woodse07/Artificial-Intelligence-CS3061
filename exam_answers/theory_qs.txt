@@ -1,0 +1,177 @@
+(✝) = an agent acting intelligently in its environment
+
+What is the Symbol System Hypothesis and what does it have to do with (✝)?
+
+	States that all reasoning can be expressed as symbol manipulation, given a physical
+	symbol system that combines symbols into structures/expressions, and manipulates them 
+	to create new expressions. This relates to (✝), as an intelligent agent can manipulate
+	symbols. The environment it acts in is the symbol system, and its acts are symbol
+	manipulations. Therefore based on the hypothesis it is proposed that an intelligent
+	agent can reason.
+
+
+
+What does search have to do with non-determinism?
+	
+	A non-deterministic algorithm, given the same input, can exhibit different behaviours
+	on different runs. When an intelligent agent searches a graph node by node, the next node
+	in the graph is non-deterministic. There is no way of telling what the next node traversed
+	will be as the agent must make intelligent choices, and as a result may behave 
+	non-deterministicaly.
+
+
+
+State precisely the sense in which Cantor's theorem says that the set of infinite bit strings
+cannot be searched. 
+	
+	Cantor's theorem states that for any set A, the power set of A has a greater cardinality
+	than A itself. The power set of a countably infinite set, is uncountably infinite.
+	This means that to search a set of infinite bit strings, would mean to search the power
+	set of that infinite bit string, which by Cantor's theorem is uncountably infinite.
+
+
+
+What is the problem SAT of Boolean satisfiability, and what does it have to do with finite
+bit strings?
+	
+	SAT is the problem of seeing whether a boolean expression is satisfiable. A boolean
+	expression, with a finite amount of boolean variables, a,b,c,d,e,f.. is lke a finite
+	bit string, where each variable can take one of two values. The SAT problem is finding 
+	out if there is a combination of values these variables can take (eg combination of 1,0)
+	so that the expression will be satisfied. An intelligent agent acts to find this 
+	expression.
+
+
+
+How is exponentiation relevant to SAT and polynomial time computability?
+	
+	With n boolean variables there are 2^n different possible bit strings of length n, (ie)
+	the search space is exponential. To search this space using a brute fore solution takes
+	worse than polynomial time.
+
+
+
+What is a binary decision diagram (BDD), and what does it mean to be ordered and reduced?
+
+	- A BDD is a rooted, acyclic graph with terminal nodes of the values 0/1.
+	- Ordered: A nodes variable index must be less than that of any of it's children.
+	- Reduced: High and Low children of a node cannot be the same. They must be opposite
+			   in order to arrive at a terminal node. 
+
+
+
+What is a Turing Machine and what does it have to do with (✝)?
+
+	A Turing Machine is a hypothetical machine that can determine a result from a set of
+	input variables. A Turing Machine can be seen as an agent acting intelligently on it's
+	environment, where the environment is the tape. 
+
+
+
+What is the Halting Problem and how is it relevant to (✝)?
+
+	- Halting problem states that HP(P,D) = (1 if P halts on D, 0 otherwise)
+	- Intelligent Agent which is given a goal, may take forever to determine whether that
+	  goal can be satisfied.
+	- Unpredictable over Turing Machines.
+
+
+
+What is SAT and how is it relvant to (✝)?
+
+	- SAT is the problem of seeing whether a boolean expression is satisfiable.
+	- The agent might be tasked with the computation. Boolen expressions are ways of 
+	  expressing the computation of the agent.
+
+
+
+What is P vs NP and how it SAT relevant to it?
+
+	- P are all the problems a deterministic Turing Machine can solve in polynomial time.
+	- NP are the problems a non-deterministic Turing Machine can solve in polynomial time.
+	- Checking whether an assignment satisfied a boolean expression is a P problem. 
+	- Finding the assignments which satisfy the boolean expression is a NP problem.
+
+
+
+What is the Church-Turing Thesis and wat does it add to Symbol-System Hypothesis in addressing (✝)?
+
+	The thesis states that any symbol manipulation can be carried out by a Turing Machine.
+	This means that a Turing Machine can be seen as an intelligent agent, since it can 
+	manipulate symbols, and therefore reason. 
+
+
+
+What are the ingredients of a Constraint Satisfaction Problem(CSP)?
+	
+	- Variables
+	- Domain
+	- Constraints.
+
+
+
+What is the generate and test approach in CSP?
+	
+	This is a brute force approach in which every possible solution is generated. Then 
+	these solutions are all tested to see if they satisfy the criteria.
+
+
+
+What does it mean for A* to be admissible, and what three things are necessary for A* to be
+admissible?
+
+	- If there is a solution, A* will find the optimal solution.
+	- Three things necessary for A* to be admissible:
+		1. Branching factor must be finite.
+		2. Arc cost must be bounded above 0.
+		3. The heuristic must be an underestimate.
+
+
+
+When is an ordered BDD satisfiable?
+
+	Precisely when it is not equal to 0.
+
+
+
+What do non-determinism and search have to do with (✝)?
+
+	- Intelligent action comes with the need to make a choice based on heuristic.
+	- When searching, the intelligent agent will need to be non-deterministic in its 
+	  approach and make choices based on the heuristic. 
+
+
+
+What is non-determinism?
+	
+	- A nondeterministic algorithm is an algorithm that, even for the same input, may exhibit
+	  different behaviours on different runs. 
+
+
+
+What is Marr's Tri-Level Hypothesis and what does it have to do with AI?
+
+	1. Computational: What is the goal of the computation, why is it appropriate?
+	2. Algorithmic: How can this computational theory be implemented? 
+	3. Implementational: How can the representation an algorithm be realized physically?
+
+
+
+What is a Constraint Satisfaction Problem(CSP)? Is the Halting Problem a CSP? Is SAT a CSP?
+Explain.
+
+	CSP: Is a mathematical problem defined as a set of object whose state must satisfy a
+		 number of constraint and limitations. CSPs represent the entity of a problem as a
+		 homogenous collection of finite constraints over variables, which is solved by 
+		 constraint satisfaction methods.
+		
+		 CSP = {V, D, C}
+		 	V = Variables.
+			D = Domain.
+			C = Constraints.
+
+	Halting Problem is not a CSP, program and input domain are infinite.
+
+	SAT is a CSP.. Var = Variables of boolean expression, Dom = [true, false], Con=?
+
+
