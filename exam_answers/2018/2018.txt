@@ -42,8 +42,6 @@ A* still won't be admissible under this setup since the branching factor is stil
 
 
 
-
-
 QUESTION 2:
 
 (a)
@@ -52,5 +50,201 @@ Policy: is a mapping from s -> a, tells us what action to take for all states.
 3*2 = 6 policies.
 
 (b)
-Optimal Policy: is the best policy, the best action for us to take for all states.
+y-Optimal Policy: is the best policy, the best action for us to take for all states.
 
+How is it computed from the y-discounted value of a pair (s,a)?
+Todo..
+
+How are y-discounted values computed by value iteration q0,q1,q2...?
+Todo..
+
+Compute q2(s3,a2) for:
+	S = {s1,s2,s3}
+	A = {a1,a2}
+	y = 0.1
+
+Probabilities and immediate rewards given by Table a1 and Table a2 as follows:
+	- The entry of Table ai at row s, column s' is the pair:
+	  p(s, ai, s'), r(s, ai, s').
+
+Table a1:
+	s1	s2	s3
+s1	(.5,3)	(.3,0)	(.2,-2)
+s2	(.3,0)	(.5,1)	(.2,2)
+s3	(0,0)	(0,0)	(1,1)
+
+Table a2:
+	s1	s2	s3
+s1	(.2,4)	(.2,2)	(.6,-3)
+s2	(.1,1)	(0,0)	(.9,-2)
+s3	(0,0)	(0,0)	(1,0)
+
+
+Answer:
+**LEARN THESE OFF**
+q0(s,a)   = p(s,a,s1)*r(s,a,s1) + p(s,a,s2)*r(s,a,s2) + p(s,a,s3)*r(s,a,s3) 
+vn(s)     = max(qn(s, a1), qn(s, a2))
+qn+1(s,a) = q0(s,a) + y(p(s,a,s1)Vn(s1) + p(s,a,s2)Vn(s2) + p(s,a,s3)Vn(s3))
+
+q2(s3,a2) = q0(s3,a2) + 0.1(p(s3,a2,s1)V1(s1) + 
+			    p(s3,a2,s2)V1(s2) + 
+			    p(s3,a2,s3)V1(s3))
+	
+	  = q0(s3,a2) + 0.1(0*V1(s1) +
+			    0*V1(s2) +
+			    1*V1(s3))
+
+	  = q0(s3,a2) + 0.1(V1(s3))
+
+	  = q0(s3,a2) + 0.1(max(q1(s3,a1),q1(s3,a2)))...(Let's do these seperately and resume)
+
+	  = 0 + 0.1(1.1)
+
+	  = 0.11 (*ANSWER* Further calculations can be seen below)
+	
+
+q1(s3,a1) = q0(s3,a1) +  0.1(p(s3,a1,s1)V0(s1) +
+                             p(s3,a1,s2)V0(s2) +
+                             p(s3,s1,s3)V0(s3))
+
+	  = q0(s3,a1) + 0.1(0*v0(s1) + 
+			    0*V0(s2) +
+			    1*V0(s3))
+	
+	  = q0(s3,a1) + 0.1(v0(s3))
+	
+	  = q0(s3,a1) + 0.1(max(q0(s3,a1), q0(s3,a2)))
+
+	  = 1 + 0.1(1)
+
+	  = 1.1
+
+q1(s3,a2) = q0(s3,a2) + 0.1(max(q0(s3,a1), q0(s3,a2)))...(Again, let's do these seperately)
+	
+	  = 0 + 0.1(1)
+
+	  = 0.1
+
+
+q0(s3,a1) = p(s3,a1,s1)*r(s3,a1,s1) + 
+	    p(s3,a1,s2)*r(s3,a1,s2) + 
+	    p(s3,a1,s3)*r(s3,a1,s3)
+
+	  = 0*0 + 0*0 + 1*1
+	
+	  = 1
+
+q0(s3,a2) = p(s3,a2,s1)*r(s3,a2,s1) + 
+            p(s3,a2,s2)*r(s3,a2,s2) + 
+            p(s3,a2,s3)*r(s3,a2,s3)
+
+	  = 0*0 + 0*0 + 1*0
+
+	  = 0
+
+Therefore: q2(s3,a2) = 0.11
+
+
+
+(c)
+How can we learn y-discounted values when we do not know the probabilities 'p' and immediate 
+rewards 'r'?
+
+Answer:
+todo...
+
+(d)
+What is the exploration-exploitation tradeoff in (c), and how can we adjust the notation of a
+policy to accommodate the trade-off?
+
+Answer:
+Exploration means we want to try something new.
+Exploitation means we use what we know.
+
+todo...
+
+
+
+QUESTION 3:
+(a)
+(i) 
+What is a definite clause?
+	- A definite clause is simply a prolog statement.
+
+(ii) 
+What is a horn clause?
+	- A horn clause is a definite clause OR an integrity constraint.
+	- (Integrity constraint: constraint in the form of: 'false <- a ∧ b')
+
+(iii)
+True of False: Every set of definite clauses is satisfiable.
+	       Justify your answer.
+	- False.. Lets say we have a definite clause:
+		p :- p.
+	- This term will never be satisfied as it is infinite.
+	  (Not sure if this is the correct answer..)
+
+(iv)
+Outline an efficient algorithm to determine whether a set of Horn clauses are satisfiable.
+todo...
+
+
+(b)
+True of False: A set KB of clauses is satisfiable if and only if the atom false is
+	       a logical consequence of KB. Justify your answer, stating what it 
+	       means for a clause to be a logical consequence of KB.
+
+- Models & Logical Consequences:
+	- A KB is true in interpretation I iff every clause in KB is true in I.
+
+	- A model of a set of clauses is an interpretation in which all the clauses are true.
+
+	- If KB is a set of clauses, and g is a conjunction of atoms, then g is a 
+	  logical consequence of KB (written KB |= g) if g is true in every model of KB.
+
+
+- I guess a clause is a logical consequence of KB is the clause is true in every model of KB?
+
+- todo...
+
+
+(c)
+Given the Bayes net and probabilities below for the boolean variables X1,X2,X3,X4
+(with negations X1',X2',X3',X4'), calculate the probabilities in (i), (ii) and (iii).
+
+Given:
+	P(X1)     = 0.3
+	P(X2|X1)  = 0.7
+	P(X2|X1') = 0.5
+	P(X3|X1)  = 0.2
+	P(X3|X1') = 0.6
+	P(X4|X3)  = 0.6
+	P(X4|X3') = 0.7
+
+Bayes Rule:
+	- P(E|F) = P(F|E)P(E) / P(F)
+	
+	- P(F) = P(F|E)P(E) + P(F|E')P(E').. (Seems to help in most questions) 
+
+(i) P(X1|X2)
+
+	P(X1|X2) = P(X2|X1)P(X1) / P(X2).. P(X2|X1)P(X1) / P(X2|X1)P(X1) + P(X2|X1')P(X1')
+		 = ((0.7)(0.3)) / ((0.7)(0.3) + (0.5)(1-0.3))
+	         = 0.375
+
+(ii) P(X3|X2)
+
+	Is answer just 0 since given we've gone to X2, there is not path to X3?	
+
+	P(X3) = P(X3|X1)P(X1) + P(X3|X1')P(X1')
+	      = (0.2)(0.3) + (0.6)(0.7)
+	      = 0.48
+
+	P(X3|X2) = P(X2|X3)P(X3) / P(X2).. P(X2|X3)P(X3) / P(X2|X3)P(X3) + P(X2|X3')P(X3')
+		 = ((?)(0.48)) / ((?)(0.48) + (?)(1-0.48))
+
+(iii) P(X3|X4)
+	
+	P(X3|X4) = P(X4|X3)P(X3) / P(X4).. P(X4|X3)P(X3) / P(X4|X3)P(X3) + P(X4|X3')P(X3')
+		 = ((0.6)(0.48)) / ((0.6)(0.48) + (0.6)(1-0.48))
+		 = 0.48
